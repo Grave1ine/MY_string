@@ -11,14 +11,14 @@ String::String():
     std::cout << "String()" << std::endl;
 }
 
-String::String(const String & name): _size(name._size), _capacity(name._capacity)//копирование?
+String::String(const String & name): _size(name._size), _capacity(name._capacity)//копирование
 {   //указатели копируются особым образом
-    _data = new char[name._capacity];               //выделяется память размером с _capacity
+    _data = new char[name._capacity];           //выделяется память размером с _capacity
     memcpy(_data, name._data, _size * sizeof(char));//[куда, откуда, размерность] сигнатура memcpy()
     std::cout << "String(const String & name)" << std::endl;
 }
 
-String::String(String && name):                 //перемещение?
+String::String(String && name):                 //перемещение
     _size(name._size),                          //перемещение старых даннах
     _capacity(name._capacity),                  //
     _data(name._data)                           //перемещение указателя
