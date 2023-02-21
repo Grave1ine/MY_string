@@ -19,14 +19,10 @@ class String
         void push_back(char value);                         //РґРѕР±Р°РІРёС‚СЊ РІ РєРѕРЅРµС† СЃС‚СЂРѕРєРё
         char *get_C_str() const;                            //Вывод строки. const не модифицирует поля
         size_t get_size();
-        void concatenation(const char *value);
+        void concatenation(const char * value);
         void concatenation(const String &);
         char operator[](size_t value) const;                //РћРїРµСЂР°С‚РѕСЂ[] СЂР°Р±РѕС‚Р°РµС‚ РєР°Рє РјРµС‚РѕРґ РєР»Р°СЃСЃР° (РІ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ Р±СЂР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ)
 
-        bool operator == (const String & word)              //пользовательский оператор сравнения
-        {
-            return std::strcmp(_data, word._data) == 0;
-        }
 
         String & operator = (const String & word1)
         {
@@ -41,17 +37,12 @@ class String
             return *this;
         }
 
-        bool operator != (const String & word)
-        {
-            return std::strcmp(_data, word._data) != 0;
-        }
-
-        friend bool operator < (String word1, String word2)
-        {
-            return word1._data < word2._data;
-        }
 
     private:
+        friend bool operator != (const String & wordLeft, const String & wordRight);
+        friend bool operator < (const String & word1, const String & word2);
+        friend bool operator == (const String & wordLeft, const String & wordRighr);
+
         size_t _size;                                       //size_t СЌС‚Рѕ unsigned int
         size_t _capacity;
         char * _data;                                       //СѓРєР°Р·Р°С‚РµР»СЊ С‚РёРїР° char?
@@ -59,6 +50,20 @@ class String
         friend std::ostream & operator << (std::ostream &os, const String &value);    //пользовательским оператор потока вывода
 
 };
+inline bool operator != (const String & wordLeft, const String & wordRight)
+{
+    return std::strcmp(wordLeft._data, wordRight._data) != 0;
+}
+
+inline bool operator < (const String & word1, const String & word2)
+{
+    return word1._data < word2._data;
+}
+
+inline bool operator == (const String & wordLeft, const String & wordRighr)              //пользовательский оператор сравнения
+{
+    return std::strcmp(wordLeft._data, wordRighr._data) == 0;
+}
 
 inline std::ostream & operator << (std::ostream &os, const String &value)
 {
